@@ -44,7 +44,7 @@ body {
   padding: 18px 18px 60px;
 }
 
-/* PRODUCTS (responsive, mobile-first) */
+/* PRODUCTS */
 .products {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -54,7 +54,7 @@ body {
 }
 
 .product {
-  max-width: 320px;
+  max-width: 340px;
   margin: 0 auto;
   transition: transform 0.25s ease;
 }
@@ -63,16 +63,65 @@ body {
   transform: translateY(-4px);
 }
 
-.product img {
+/* ===== SLIDER (per product) =====
+   Swipe on mobile, scroll on desktop.
+   Scroll-snap makes it "slide" between images. */
+.slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: 0;
+  border: 1px solid rgba(11, 11, 11, 0.12);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar (Chrome/Safari/Edge) */
+.slider::-webkit-scrollbar {
+  display: none;
+}
+
+.slider img {
+  flex: 0 0 100%;
   width: 100%;
+  height: auto;
   display: block;
+  scroll-snap-align: start;
   transition: opacity 0.25s ease;
 }
 
-.product img:hover {
-  opacity: 0.86;
+.slider:hover img {
+  opacity: 0.95;
 }
 
+/* Optional: small "hint" gradient edges to show it scrolls */
+.slider {
+  position: relative;
+}
+
+.slider::before,
+.slider::after {
+  content: "";
+  position: sticky;
+  top: 0;
+  width: 26px;
+  height: 100%;
+  pointer-events: none;
+  flex: 0 0 0;
+}
+
+.slider::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0));
+}
+
+.slider::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(255,255,255,0.9), rgba(255,255,255,0));
+}
+
+/* TEXT */
 .name {
   margin: 12px 0 4px;
   font-size: 14px;
