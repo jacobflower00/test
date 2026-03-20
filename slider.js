@@ -24,55 +24,26 @@ brandLink.addEventListener('click', e => { e.preventDefault(); showShop(); });
 
 document.querySelectorAll('.product').forEach(product => {
   const slider  = product.querySelector('.slider');
+  const imgs    = Array.from(slider.querySelectorAll('img'));
   const dots    = product.querySelectorAll('.dot-btn');
   const overlay = product.querySelector('.product-overlay');
-  const total   = slider.querySelectorAll('img').length;
+  const total   = imgs.length;
   let current   = 0;
+  let animating = false;
+
+  imgs[0].classList.add('active');
 
   function goTo(index) {
-    current = Math.max(0, Math.min(index, total - 1));
-    const w = slider.clientWidth;
-    slider.scrollTo({ left: current * w, behavior: 'smooth' });
+    if (animating || index === current) return;
+    animating = true;
+    imgs[current].classList.remove('active');
+    imgs[index].classList.add('active');
+    current = index;
     dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    setTimeout(() => { animating = false; }, 650);
   }
 
   dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
-
-  slider.addEventListener('scroll', () => {
-    const w = slider.clientWidth;
-    const idx = Math.round(slider.scrollLeft / w);
-    if (idx !== current) {
-      current = idx;
-      dots.forEach((d, i) => d.classList.toggle('active', i === current));
-    }
-  }, { passive: true });
-
-  let isDown = false;
-  let startX = 0;
-  let scrollLeft = 0;
-
-  slider.addEventListener('mousedown', e => {
-    isDown = true;
-    startX = e.pageX - slider.offsetLeft;
-    scrollLeft = slider.scrollLeft;
-  });
-
-  slider.addEventListener('mouseleave', () => { isDown = false; });
-
-  slider.addEventListener('mouseup', () => {
-    isDown = false;
-    const w = slider.clientWidth;
-    const idx = Math.round(slider.scrollLeft / w);
-    goTo(idx);
-  });
-
-  slider.addEventListener('mousemove', e => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - slider.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    slider.scrollLeft = scrollLeft - walk;
-  });
 
   let touchStartX = 0;
   let touchDeltaX = 0;
@@ -88,9 +59,37 @@ document.querySelectorAll('.product').forEach(product => {
   }, { passive: true });
 
   wrap.addEventListener('touchend', () => {
-    if (Math.abs(touchDeltaX) > 10) return;
-    overlay.classList.toggle('visible');
+    if (Math.abs(touchDeltaX) > 40) {
+      if (touchDeltaX < 0 && current < total - 1) goTo(current + 1);
+      if (touchDeltaX > 0 && current > 0) goTo(current - 1);
+    } else {
+      overlay.classList.toggle('visible');
+    }
   }, { passive: true });
 
-  goTo(0);
+  let isDown    = false;
+  let startX    = 0;
+  let dragDelta = 0;
+
+  wrap.addEventListener('mousedown', e => {
+    isDown    = true;
+    startX    = e.pageX;
+    dragDelta = 0;
+  });
+
+  wrap.addEventListener('mouseleave', () => { isDown = false; });
+
+  wrap.addEventListener('mouseup', () => {
+    if (!isDown) return;
+    isDown = false;
+    if (Math.abs(dragDelta) > 40) {
+      if (dragDelta < 0 && current < total - 1) goTo(current + 1);
+      if (dragDelta > 0 && current > 0) goTo(current - 1);
+    }
+  });
+
+  wrap.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    dragDelta = e.pageX - startX;
+  });
 });
