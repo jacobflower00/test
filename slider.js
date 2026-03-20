@@ -1,6 +1,6 @@
-const navShop   = document.getElementById('navShop');
-const navSizing = document.getElementById('navSizing');
-const brandLink = document.getElementById('brandLink');
+const navShop    = document.getElementById('navShop');
+const navSizing  = document.getElementById('navSizing');
+const brandLink  = document.getElementById('brandLink');
 const viewShop   = document.getElementById('viewShop');
 const viewSizing = document.getElementById('viewSizing');
 
@@ -24,7 +24,7 @@ brandLink.addEventListener('click', e => { e.preventDefault(); showShop(); });
 
 document.querySelectorAll('.product').forEach(product => {
   const slider  = product.querySelector('.slider');
-  const dots    = product.querySelectorAll('.dot');
+  const dots    = product.querySelectorAll('.dot-btn');
   const overlay = product.querySelector('.product-overlay');
   const total   = slider.querySelectorAll('img').length;
   let current   = 0;
