@@ -1,4 +1,3 @@
-// NAV switching
 const navShop   = document.getElementById('navShop');
 const navSizing = document.getElementById('navSizing');
 const brandLink = document.getElementById('brandLink');
@@ -23,7 +22,6 @@ navShop.addEventListener('click', e => { e.preventDefault(); showShop(); });
 navSizing.addEventListener('click', e => { e.preventDefault(); showSizing(); });
 brandLink.addEventListener('click', e => { e.preventDefault(); showShop(); });
 
-// SLIDERS
 document.querySelectorAll('.product').forEach(product => {
   const slider  = product.querySelector('.slider');
   const dots    = product.querySelectorAll('.dot');
