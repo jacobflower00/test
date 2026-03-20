@@ -3,76 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>test</title>
+  <title>sraczka</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-  <header class="site-header">
-    <h1 class="brand">siemaa</h1>
-    <p class="tagline">minimal guwno • drops only</p>
+
+  <header class="header">
+    <a class="logo" href="#">test</a>
+    <p class="date-line" id="dateLine"></p>
   </header>
 
-  <main class="container">
-    <section class="products" aria-label="Products">
+  <main class="product-page">
 
-      <!-- PRODUCT 1 -->
-      <div class="product">
-        <div class="slider-wrap">
-          <div class="slider" aria-label="Product photos">
-            <img src="https://picsum.photos/600/800?random=11" alt="siema1 photo 1" />
-            <img src="https://picsum.photos/600/800?random=12" alt="siema1 photo 2" />
-            <img src="https://picsum.photos/600/800?random=13" alt="siema1 photo 3" />
-          </div>
+    <div class="product-image">
+      <img id="mainPhoto" src="https://picsum.photos/600/750?random=99" alt="Product photo" />
+    </div>
+
+    <div class="product-info">
+      <h1 class="product-title">Supreme®/MM6 Maison Margiela Box Logo Zip Up Hooded Sweatshirt</h1>
+      <p class="product-color">Black</p>
+
+      <p class="product-desc">
+        Brushed-back fleece with printed paint splatters throughout. Full zip closure and pouch pocket. Embroidered logo on chest. Embroidered MM6 numeric signature at cuff. MM6 white stitch line at back neck.
+      </p>
+
+      <div class="swatches" id="swatches">
+        <div class="swatch active" data-index="0">
+          <img src="https://picsum.photos/46/46?random=31" alt="Color 1" />
         </div>
-        <div class="slider-dots">
-          <span class="dot active"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
+        <div class="swatch" data-index="1">
+          <img src="https://picsum.photos/46/46?random=32" alt="Color 2" />
         </div>
-        <p class="name">siema1</p>
-        <p class="price">nw</p>
-        <a class="btn" href="https://www.instagram.com/jac0bfl0wer/" target="_blank" rel="noopener noreferrer">ORDER VIA IG</a>
+        <div class="swatch" data-index="2">
+          <img src="https://picsum.photos/46/46?random=33" alt="Color 3" />
+        </div>
+        <div class="swatch" data-index="3">
+          <img src="https://picsum.photos/46/46?random=34" alt="Color 4" />
+        </div>
+        <div class="swatch" data-index="4">
+          <img src="https://picsum.photos/46/46?random=35" alt="Color 5" />
+        </div>
+        <div class="swatch" data-index="5">
+          <img src="https://picsum.photos/46/46?random=36" alt="Color 6" />
+        </div>
       </div>
 
-      <!-- PRODUCT 2 -->
-      <div class="product">
-        <div class="slider-wrap">
-          <div class="slider" aria-label="Product photos">
-            <img src="https://picsum.photos/600/800?random=21" alt="siema2 photo 1" />
-            <img src="https://picsum.photos/600/800?random=22" alt="siema2 photo 2" />
-            <img src="https://picsum.photos/600/800?random=23" alt="siema2 photo 3" />
-          </div>
-        </div>
-        <div class="slider-dots">
-          <span class="dot active"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-        </div>
-        <p class="name">siema2</p>
-        <p class="price">nw</p>
-        <a class="btn" href="https://instagram.com/jac0bfl0wer" target="_blank" rel="noopener noreferrer">ORDER VIA IG</a>
+      <!-- Main photos matched to swatches -->
+      <div id="mainPhotos" style="display:none">
+        <span data-src="https://picsum.photos/600/750?random=99"></span>
+        <span data-src="https://picsum.photos/600/750?random=42"></span>
+        <span data-src="https://picsum.photos/600/750?random=43"></span>
+        <span data-src="https://picsum.photos/600/750?random=44"></span>
+        <span data-src="https://picsum.photos/600/750?random=45"></span>
+        <span data-src="https://picsum.photos/600/750?random=46"></span>
       </div>
 
-    </section>
+      <p class="price">€318</p>
 
-    <section class="how" aria-label="How to order">
-      <h2>How to order</h2>
-      <p>Send us a DM on Instagram with:</p>
-      <ul>
-        <li>Product name</li>
-        <li>Size</li>
-        <li>Shipping address</li>
-      </ul>
-      <p class="note">Payment: BLIK (or as agreed in DM)</p>
-    </section>
+      <div class="buttons">
+        <div class="btn-available">available</div>
+        <a class="btn-ig" href="https://instagram.com/jac0bfl0wer" target="_blank" rel="noopener noreferrer">buy on ig</a>
+      </div>
 
-    <footer class="footer">
-      <a class="footer-link" href="https://instagram.com/jac0bfl0wer" target="_blank" rel="noopener noreferrer">
-        instagram.com/jac0bfl0wer
-      </a>
-    </footer>
+      <p class="shipping-note">* free shipping on all orders over €250, some exceptions may apply</p>
+    </div>
+
   </main>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <span class="lang">🇬🇧 en ▾</span>
+      <a href="#">spring/summer 2026 preview</a>
+      <a href="#">lookbook</a>
+      <a href="#">news</a>
+    </div>
+  </footer>
 
   <script src="slider.js"></script>
 </body>
