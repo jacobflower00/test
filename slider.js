@@ -22,6 +22,10 @@ navShop.addEventListener('click', e => { e.preventDefault(); showShop(); });
 navSizing.addEventListener('click', e => { e.preventDefault(); showSizing(); });
 brandLink.addEventListener('click', e => { e.preventDefault(); showShop(); });
 
+function isMobile() {
+  return window.matchMedia('(hover: none)').matches;
+}
+
 document.querySelectorAll('.product').forEach(product => {
   const slider  = product.querySelector('.slider');
   const imgs    = Array.from(slider.querySelectorAll('img'));
@@ -63,7 +67,9 @@ document.querySelectorAll('.product').forEach(product => {
       if (touchDeltaX < 0 && current < total - 1) goTo(current + 1);
       if (touchDeltaX > 0 && current > 0) goTo(current - 1);
     } else {
-      overlay.classList.toggle('visible');
+      if (isMobile()) {
+        openMobilePanel(product, imgs[current].src);
+      }
     }
   }, { passive: true });
 
@@ -92,4 +98,74 @@ document.querySelectorAll('.product').forEach(product => {
     if (!isDown) return;
     dragDelta = e.pageX - startX;
   });
+});
+
+// MOBILE PANEL
+const mobilePanel      = document.getElementById('mobilePanel');
+const mobilePanelImg   = document.getElementById('mobilePanelImg');
+const mobilePanelName  = document.getElementById('mobilePanelName');
+const mobilePanelDesc  = document.getElementById('mobilePanelDesc');
+const mobilePanelPrice = document.getElementById('mobilePanelPrice');
+const mobilePanelClose = document.getElementById('mobilePanelClose');
+
+function openMobilePanel(product, imgSrc) {
+  const name  = product.querySelector('.overlay-name')?.textContent  || '';
+  const desc  = product.querySelector('.overlay-desc')?.textContent  || '';
+  const price = product.querySelector('.overlay-price')?.textContent || '';
+
+  mobilePanelImg.src            = imgSrc;
+  mobilePanelName.textContent   = name;
+  mobilePanelDesc.textContent   = desc;
+  mobilePanelPrice.textContent  = price;
+
+  mobilePanel.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMobilePanel() {
+  mobilePanel.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+mobilePanelClose.addEventListener('click', closeMobilePanel);
+
+// LIGHTBOX (desktop only)
+const lightbox      = document.getElementById('lightbox');
+const lightboxImg   = document.getElementById('lightboxImg');
+const lightboxClose = document.getElementById('lightboxClose');
+
+document.querySelectorAll('.slider-wrap').forEach(wrap => {
+  wrap.addEventListener('click', () => {
+    if (isMobile()) return;
+    const product   = wrap.closest('.product');
+    const activeImg = product.querySelector('.slider img.active');
+    if (!activeImg) return;
+
+    lightboxImg.src             = activeImg.src;
+    lightboxImg.style.width     = '80vw';
+    lightboxImg.style.height    = '80vh';
+    lightboxImg.style.maxWidth  = '80vw';
+    lightboxImg.style.maxHeight = '80vh';
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+lightbox.addEventListener('click', () => {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+});
+
+lightboxClose.addEventListener('click', e => {
+  e.stopPropagation();
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    lightbox.classList.remove('open');
+    mobilePanel.classList.remove('open');
+    document.body.style.overflow = '';
+  }
 });
