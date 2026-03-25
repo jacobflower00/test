@@ -405,7 +405,7 @@ body {
 .mobile-panel {
   position: fixed;
   inset: 0;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.93);
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -454,7 +454,6 @@ body {
   justify-content: center;
   padding: 28px 24px;
   text-align: center;
-  border-top: 1px solid rgba(11, 11, 11, 0.1);
 }
 
 .mobile-panel-name {
